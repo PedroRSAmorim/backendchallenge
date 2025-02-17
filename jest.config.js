@@ -15,6 +15,9 @@ module.exports = {
     '!src/**/database/**',
     '!src/**/entity/**',
   ],
+  moduleNameMapper: {
+    '^src/(.*)$': '<rootDir>/src/$1',
+  },
   coveragePathIgnorePatterns: [
     '/node_modules/',
     '/test/',
