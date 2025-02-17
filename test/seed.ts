@@ -112,6 +112,18 @@ export const seedDatabase = async (dataSource: DataSource) => {
         company: createdCompany1,
       }),
     ),
+    queryRunner.manager.save(
+      queryRunner.manager.create(Content, {
+        id: '12ed0f9e-ff27-4052-99c5-2022a438e5ee',
+        title: 'Master Sword',
+        description: 'A jornada começa.',
+        url: 'http://localhost:3000/uploads/hyrule.txt',
+        cover: 'http://localhost:3000/uploads/hyrule-cover.txt',
+        type: 'txt',
+        total_likes: 10,
+        company: createdCompany1,
+      }),
+    ),
   ])
 
   console.info('Database seeded successfully.')
