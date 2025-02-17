@@ -27,8 +27,8 @@ dotenv.config()
     GraphQLModule.forRoot({
       autoSchemaFile: true,
       driver: ApolloDriver,
-      introspection: true,
-      playground: true,
+      introspection: process.env.NODE_ENV !== 'production',
+      playground: process.env.NODE_ENV !== 'production',
       formatError: (error: GraphQLError) => {
         return {
           message: error.extensions?.originalError?.['message'],
