@@ -1,9 +1,9 @@
 import { Test, TestingModule } from '@nestjs/testing'
 import { suite, test } from '@testdeck/jest'
-import { ContentService } from '../../../../src/content/service'
-import { ContentRepository } from '../../../../src/content/repository'
+import { ContentService } from 'src/content/service'
+import { ContentRepository } from 'src/content/repository'
 import { BadRequestException, NotFoundException } from '@nestjs/common'
-import { Content } from '../../../../src/content/entity'
+import { Content } from 'src/content/entity'
 import * as fs from 'fs'
 
 @suite
