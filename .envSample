@@ -1,0 +1,9 @@
+# JWT Secret para autenticação
+JWT_SECRET=your_jwt_secret_here
+
+# Configurações do banco de dados
+DB_HOST=localhost
+DB_USER=example_user
+DB_PASSWORD=super_secret_password
+DB_NAME=example_database
+DB_PORT=1234

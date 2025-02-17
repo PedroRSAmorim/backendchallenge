@@ -1,3 +1,4 @@
+import * as dotenv from 'dotenv'
 import { HttpStatus, Module } from '@nestjs/common'
 import { GraphQLError } from 'graphql'
 import { TypeOrmModule } from '@nestjs/typeorm'
@@ -8,24 +9,26 @@ import { CompanyModule } from 'src/company'
 import { ApolloDriver } from '@nestjs/apollo'
 import { ConfigModule } from '@nestjs/config'
 
+dotenv.config()
+
 @Module({
   imports: [
+    ConfigModule.forRoot({ isGlobal: true }),
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'localhost',
-      port: 5432,
-      username: 'postgres',
-      password: 'postgres',
-      database: 'challenge',
+      host: process.env.DB_HOST,
+      port: parseInt(process.env.DB_PORT),
+      username: process.env.DB_USER,
+      password: process.env.DB_PASSWORD,
+      database: process.env.DB_DATABASE,
       autoLoadEntities: true,
       synchronize: false,
     }),
-    ConfigModule.forRoot({ isGlobal: true }),
     GraphQLModule.forRoot({
       autoSchemaFile: true,
       driver: ApolloDriver,
-      introspection: true,
-      playground: true,
+      introspection: process.env.NODE_ENV !== 'production',
+      playground: process.env.NODE_ENV !== 'production',
       formatError: (error: GraphQLError) => {
         return {
           message: error.extensions?.originalError?.['message'],
