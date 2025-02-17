@@ -1,9 +1,9 @@
 import { Test, TestingModule } from '@nestjs/testing'
 import { suite, test } from '@testdeck/jest'
-import { ContentService } from 'src/content/service'
-import { ContentRepository } from 'src/content/repository'
+import { ContentService } from '../../../../src/content/service'
+import { ContentRepository } from '../../../../src/content/repository'
 import { BadRequestException, NotFoundException } from '@nestjs/common'
-import { Content } from 'src/content/entity'
+import { Content } from '../../../../src/content/entity'
 import * as fs from 'fs'
 
 @suite
@@ -88,6 +88,12 @@ export class ContentServiceUnitTest {
   }
 
   @test
+  async '[generateMetadataForType] Should return correct metadata for video with 0 bytes'() {
+    const metadata = this.contentService.generateMetadataForType(this.mockContent('video'), 0)
+    expect(metadata).toEqual({ duration: 10, resolution: '1080p' })
+  }
+
+  @test
   async '[generateMetadataForType] Should return correct metadata for video'() {
     const metadata = this.contentService.generateMetadataForType(this.mockContent('video'), 200000)
     expect(metadata).toEqual({ duration: 2, resolution: '1080p' })
@@ -134,7 +140,7 @@ export class ContentServiceUnitTest {
     })
     const loggerSpy = jest
       .spyOn(this.contentService['logger'], 'error')
-      .mockImplementation(() => {})
+      .mockImplementation(() => { })
 
     const result = await this.contentService.provision('4372ebd1-2ee8-4501-9ed5-549df46d0eb0')
     expect(loggerSpy).toHaveBeenCalledWith(expect.stringContaining('File system error'))
@@ -172,7 +178,7 @@ export class ContentServiceUnitTest {
     } as any
 
     jest.spyOn(this.contentRepository, 'findOne').mockResolvedValue(mockContentWithoutType)
-    const loggerSpy = jest.spyOn(this.contentService['logger'], 'warn').mockImplementation(() => {})
+    const loggerSpy = jest.spyOn(this.contentService['logger'], 'warn').mockImplementation(() => { })
 
     await expect(
       this.contentService.provision('4372ebd1-2ee8-4501-9ed5-549df46d0eb0'),
@@ -190,7 +196,7 @@ export class ContentServiceUnitTest {
       .mockRejectedValue(new Error('Unexpected error'))
     const loggerSpy = jest
       .spyOn(this.contentService['logger'], 'error')
-      .mockImplementation(() => {})
+      .mockImplementation(() => { })
 
     await expect(
       this.contentService.provision('4372ebd1-2ee8-4501-9ed5-549df46d0eb0'),

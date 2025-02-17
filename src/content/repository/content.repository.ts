@@ -11,10 +11,6 @@ export class ContentRepository {
   }
 
   async findOne(contentId: string): Promise<Content> {
-    if (!contentId) {
-      throw new BadRequestException('Content ID not found')
-    }
-
     const content = await this.contentRepository.findOne({
       where: { id: contentId, deleted_at: null },
     })

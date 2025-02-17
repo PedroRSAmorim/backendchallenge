@@ -15,7 +15,7 @@ export class ContentService {
   private readonly logger = new Logger(ContentService.name)
   private readonly expirationTime = 3600 // 1 hour
 
-  constructor(private readonly contentRepository: ContentRepository) {}
+  constructor(private readonly contentRepository: ContentRepository) { }
 
   async getContent(contentId: string): Promise<Content | null> {
     try {
